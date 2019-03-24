@@ -2,3 +2,12 @@ language: node_js
 node_js:
   - "iojs"
   - "7"
+
+deploy:
+provider: heroku
+api_key:
+  secure: 80c9ef0c-007b-4056-ad77-6b64d0f353af
+app: sharp-services-api
+run:
+  - restart
+  - "rake cleanup"
