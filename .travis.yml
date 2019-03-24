@@ -1,12 +1,13 @@
 language: node_js
 node_js:
-  - "8"
-
+- '8'
 deploy:
-provider: heroku
-api_key:
-  secure: 80c9ef0c-007b-4056-ad77-6b64d0f353af
-app: sharp-services-api
+  provider: heroku
+  api_key:
+    secure: KM41s8DO8XT8eoGYCPF/+pt353sjha4k75PYkDkqYvzo6MKVqrlHw93Mja6XDL5PwK45x6PYdkKqQfYRErweC9R3gnyV49IyCk3ZPerclbwXs2sLE0GVnAjfTjZkzVFAuowoOq/fxHlC8DfHwgfjZrr5Pcq2pww7thYlUhfqjUh4QvpEw1kUhyCyHVveIu4nWLmmIqEvkpGKwKwy8n1DpdW+XgbP9s98vSTryoiBjUu3hcdYcy5et9Lkg602Opbp8QwHX0onqu88uxYP6KOPtlETpMMxI2vGtjyAVkf8wvUqEdGKOMKMk9g1R4CWrlMg3wppt56Edeu3j42tP3HjLL+MFeA6HfwCvq7Ld1ILU+7Xh0VgrSuFCJlxsUkWfUmPb/DXkKjucLJJ35rdRUEAqYqMelruWrdcbqIPHDPtTBabnrBuYae3mxX4OJaBTINv1LlabzSorvzJzcwsEKknxbPqbsg+dcwAuibcFHG/QpB+QE/kLx8dc1rdNwAN84+eo8JjByGqkXP3O3OxwOHZL/xKg5lp9111XiwFkIB/6hBCq5a4jeHLr72KoMSx7xR8Bxn1AfzgQeNBpWcDaz1TSlmSTu7f/qGZQSkyhUfXH7nkcD+jAmvw9EYhmzkQe0weDug0opB0ELyOVTNGUzJLWnrUPLooxmY1GFk0qMGL2D4=
+  app: sharp-services-api
+  on:
+    repo: McAngelo/sharp-services-api
 run:
-  - restart
-  - "rake cleanup"
+- restart
+- rake cleanup
