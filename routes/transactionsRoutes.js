@@ -10,7 +10,7 @@ module.exports = function(app){
 
 
 
-	app.route('/api/v1/transactions/:transactionid')
+	app.route('/api/v1/transactions/:_id')
 		.get(transactions.read_a_transaction)
 		.put(transactions.update_a_transaction)
 		.delete(transactions.delete_a_transaction);

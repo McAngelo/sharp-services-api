@@ -18,7 +18,7 @@ var express = require("express"),
 const env = process.env.NODE_ENV || 'development';
 const config = require(`${__dirname}/config/config.js`)[env];
 
-console.log(config);
+//console.log(config);
 
 var swaggerUi = require('swagger-ui-express'),
     swaggerDocument = require('./swagger.json');
@@ -29,7 +29,10 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 mongoose.Promise = global.Promise;
 mongoose.set('useCreateIndex', true);
-mongoose.connect(`mongodb://${config.username}:${config.password}@${config.host}:${config.port}/${config.database}`, { useNewUrlParser: true });
+mongoose.set('useFindAndModify', false);
+mongoose.connect(`mongodb://${config.username}:${config.password}@${config.host}:${config.port}/${config.database}`, { useNewUrlParser: true })
+.then(() => console.log('MongoDB connected ...'))
+.catch(err => console.log(err));
 
 
 app.get("/", function (req, res) {
@@ -40,6 +43,7 @@ app.get("/", function (req, res) {
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header('Access-Control-Allow-Methods', 'PUT, PATCH, POST, GET, DELETE, OPTIONS');
   next();
 });
 
@@ -70,4 +74,4 @@ app.use(errorHandler({
 }));
 
 console.log(`Simple static server showing ${publicDir} listening at http://${hostname}:${port}`);
-app.listen(port, hostname);
+app.listen(port);

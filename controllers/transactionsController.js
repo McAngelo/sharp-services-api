@@ -29,7 +29,7 @@ exports.create_a_transaction = function(req, res){
 // this creates a single transactions
 exports.read_a_transaction = function(req, res){
 	console.log(req.params);
-	Transaction.findById(req.params.transaction_id, function(err, transaction){
+	Transaction.findById(req.params._id, function(err, transaction){
 			if(err){ res.send(err); }
 
 			res.json(transaction);
@@ -38,11 +38,12 @@ exports.read_a_transaction = function(req, res){
 
 // this creates a single transactions
 exports.update_a_transaction = function(req, res){
+	console.log(req.params.transactionid);
 	console.log(req.body);
-	Transaction.findOneAndUpdate({ _id: req.params.transaction_id }, req.body, 
+	Transaction.findOneAndUpdate({ _id: req.params.transactionid }, req.body, 
 		{ new: true }, function(err, transaction){
-			if(err) { res.send(err); }
-
+			if(err) { console.log(err);  res.send(err);}
+			console.log(transaction);
 			res.json(transaction);
 		});
 };
@@ -50,7 +51,7 @@ exports.update_a_transaction = function(req, res){
 // this creates a single transactions
 exports.delete_a_transaction = function(req, res){
 	console.log(req.params);
- 	Transaction.remove({ _id: req.params.transaction_id },function(err, transaction){
+ 	Transaction.remove({ _id: req.params._id },function(err, transaction){
  		if(err){ res.send(err); }
 
  		res.json({ message: "Transaction successfully deleted" })
