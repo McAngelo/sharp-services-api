@@ -24,13 +24,16 @@ var Schema = mongoose.Schema;
 module.exports = mongoose.model('Tasks', TaskSchema);*/
 
 var UserSchema = new Schema({
+  firstName: {type: String},
+  lastName: {type: String},
+  userName: {type: String},
+  phoneNumber: {type: String},
   email: {
     type: String, required: true,
     trim: true, unique: true,
     match: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
   },
-  firstName: {type: String},
-  lastName: {type: String}
+  password: {type: String}
 });
 
 module.exports = mongoose.model('Users', UserSchema); //defining model

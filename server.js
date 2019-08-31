@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 'use strict';
-
+require('rootpath')();
 var express = require("express"),
     app = express(),
     bodyParser = require('body-parser'),
@@ -13,7 +13,9 @@ var express = require("express"),
     hostname = process.env.HOSTNAME || 'localhost',
     port = parseInt(process.env.PORT, 10) || 8080,
     publicDir = process.argv[2] || __dirname + '/public',
-    path = require('path');
+    path = require('path'),
+    jwt = require('./_helpers/jwt'),
+    errorHandler = require('./_helpers/error-handler');
 
 const env = process.env.NODE_ENV || 'development';
 const config = require(`${__dirname}/config/config.js`)[env];
@@ -54,6 +56,9 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+// use JWT auth to secure the api
+app.use(jwt());
+
 // working with todo routes
 var todoRoutes = require('./routes/todoListRoutes'); // importing route
 todoRoutes(app);
@@ -68,6 +73,9 @@ transactionListRoutes(app);
 
 
 app.use(express.static(publicDir));
+
+// global error handler
+app.use(errorHandler);
 app.use(errorHandler({
   dumpExceptions: true,
   showStack: true

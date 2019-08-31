@@ -4,6 +4,9 @@ module.exports = function(app){
 
 	var users = require('../controllers/usersController');
 
+	app.post('api/v1/authenticate', users.authenticate);
+	app.get('api/v1/system-users', users.getAll);
+
 	app.route('/api/v1/users')
 	  .get(users.get_all_Users)
 	  .post(users.create_a_user);
