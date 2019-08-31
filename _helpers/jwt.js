@@ -1,4 +1,4 @@
-const expressJwt = require('express-jwt');
+/*const expressJwt = require('express-jwt');
 const config = require('../config/config.json');
 
 module.exports = jwt;
@@ -12,4 +12,4 @@ function jwt(){
 		'/users/authenticate'
 		]
 	});
-}
+}*/

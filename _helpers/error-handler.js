@@ -1,4 +1,4 @@
-module.exports = errorHandler;
+/*module.exports = errorHandler;
 var apiResponse = new Object();
 
 function errorHandler(err, req, res, next){
@@ -29,4 +29,4 @@ function errorHandler(err, req, res, next){
 	//apiResponse.data = transaction;
 	return res.json(apiResponse);
 	//return res.status(500).json({ message: err.message });
-}
+}*/

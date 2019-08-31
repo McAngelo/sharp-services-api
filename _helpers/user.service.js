@@ -1,4 +1,4 @@
-const config = require('../config/config.json');
+/*const config = require('../config/config.json');
 const jwt = require('jsonwebtoken');
 
 // user hardcoded for simplicity, store in a db for production application
@@ -33,4 +33,4 @@ async function getAll(){
 		const { password, ...userWithoutPassword } = u;
 		return userWithoutPassword;
 	});
-}
+}*/
