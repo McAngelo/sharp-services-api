@@ -4,6 +4,7 @@ require('rootpath')();
 var express = require("express"),
     app = express(),
     bodyParser = require('body-parser'),
+    cors = require('cors'),
     errorHandler = require('errorhandler'),
     methodOverride = require('method-override'),
     mongoose = require('mongoose'),
@@ -37,6 +38,7 @@ app.get("/", function (req, res) {
   res.sendFile(path.join(publicDir, "/index.html"));
 });
 
+app.options('*', cors());
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
