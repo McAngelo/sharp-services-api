@@ -1,13 +1,15 @@
 const express = require('express');
+const User = require('../models/user');
+//const auth = require('../middleware/auth');
 const router = new express.Router();
 
-const User = require('../models/user');
+//console.log(auth);
 
 /* User Routes */
 router.get('/users', async (req, res) => {
 
 	try{
-		const users = await user.find({});
+		const users = await User.find({});
 		res.status(200).send(users);
 	} catch (err){
 		res.status(500).send(err);
@@ -58,8 +60,9 @@ router.post('/users', async (req, res) => {
 
 	try{
 		await user.save();
-		console.log(user);
-		res.status(201).send(user);
+		const token = await user.generateAuthToken();
+		console.log({ user, token });
+		res.status(201).send({ user, token });
 	} catch (err){
 		console.log(err);
 		res.status(400).send(err);
@@ -73,6 +76,19 @@ router.post('/users', async (req, res) => {
 		res.status(400).send(error);
 	});*/
 });
+
+router.post('/users/auth', async (req, res) => {
+	try {
+		const user = await User.findByIdCredentials(req.body.email, req.body.password);
+		const token = await user.generateAuthToken();
+
+		res.send({user, token});
+	} catch(err) {
+		// statements
+		console.log(err);
+		res.status(400).send();
+	}
+})
 
 router.patch('/users/:id', async (req, res) => {
 	const  _id = req.params.id;
@@ -96,9 +112,10 @@ router.patch('/users/:id', async (req, res) => {
 			// statements
 			user[update] = req.body[update];
 		});
+		await user.save();
 		//const user = await User.findByIdAndUpdate(_id, bodyData, { new:true, runValidators: true });
 
-		 await user.save();
+
 		if(!user){
 			return res.status(404).send();
 		}
@@ -126,7 +143,7 @@ router.delete('/users/:id', async (req, res) => {
 		res.status(500).send();
 	}
 });
-
+/*
 const bcrypt = require('bcryptjs');
 
 const myFunction =  async () => {
@@ -139,6 +156,14 @@ const myFunction =  async () => {
 	const isMatch = await bcrypt.compare('red12345!', hashedPassword);
 	console.log(isMatch);
 }
+
+const myFunctionTwo = async () => {
+	const token = jwt.sign({ _id: 'abc123'}, 'thisismynewcourse',  { expiresIn: '7 days'});
+	console.log(token);
+
+	const data = jwt.verify(token, 'thisismynewcourse');
+	console.log(data);
+}*/
 
 /* User routes ends here */
 

@@ -15,15 +15,4 @@ const taskSchema = new mongoose.Schema({
 
 const Tasks = mongoose.model('Tasks', taskSchema);
 
-const task = new Tasks({
-	description: 'Working on this task',
-	completed: true
-});
-
-/*task.save().then(()=> {
-	console.log(task);
-}).catch(() => {
-	console.log('Error!', error);
-});*/
-
 module.exports = Tasks;
