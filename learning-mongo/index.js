@@ -3,103 +3,13 @@ const app = express();
 const port = process.env.PORT || 3000
 
 require('./db/mongoose');
-const User = require('./models/user');
-const Task = require('./models/task');
+
+const userRouter = require('./routers/userRoutes');
+const taskRouter = require('./routers/taskRoutes');
 
 app.use(express.json());
-
-/* User Routes */
-app.get('/users', (req, res) => {
-
-	//const user = new User();
-
-	User.find({}).then((result)=> {
-		console.log(result);
-		res.status(200).send(result)
-	}).catch((error) => {
-		console.log('Error!', error);
-		res.status(400).send(error);
-	});
-});
-
-app.get('/users/:id', (req, res) => {
-
-	const _id = req.params.id;
-
-	User.findById(_id).then((result)=> {
-		console.log(result);
-		if(!result){
-			return res.status(400).send('User not  found');
-		}
-
-		res.status(200).send(result);
-
-	}).catch((error) => {
-		console.log('Error!', error);
-		res.status(500).send(error);
-	});
-});
-
-app.post('/users', (req, res) => {
-
-	const user = new User(req.body);
-
-	user.save().then(()=> {
-		console.log(user);
-		res.status(201).send(user)
-	}).catch((error) => {
-		console.log('Error!', error);
-		res.status(400).send(error);
-	});
-});
-
-/* User routes ends here */
-
-/* Tasks routes start here */
-
-app.get('/tasks', (req, res) => {
-
-	Task.find({}).then((result)=> {
-		console.log(result);
-		res.status(200).send(result)
-	}).catch((error) => {
-		console.log('Error!', error);
-		res.status(400).send(error);
-	});
-});
-
-app.get('/tasks/:id', (req, res) => {
-
-	const _id = req.params.id;
-
-	Task.findById(_id).then((result)=> {
-		console.log(result);
-		if(!result){
-			return res.status(400).send('Task not found');
-		}
-
-		res.status(200).send(result);
-		
-	}).catch((error) => {
-		console.log('Error!', error);
-		res.status(500).send(error);
-	});
-});
-
-app.post('/tasks', (req, res) => {
-
-	const task = new Task(req.body);
-
-	task.save().then(()=> {
-		console.log(task);
-		res.status(201).send(task)
-	}).catch((error) => {
-		console.log('Error!', error);
-		res.status(400).send(error);
-	});
-});
-
-/* Tasks routes ends here*/
+app.use(userRouter);
+app.use(taskRouter);
 
 app.listen(port, () => {
 	console.log(`Server is up on port ${port}`);

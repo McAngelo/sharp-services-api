@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
-const Tasks = mongoose.model('Tasks', {
+const taskSchema = new mongoose.Schema({
 	description: {
 		type: String,
 		require: true,
@@ -12,6 +12,8 @@ const Tasks = mongoose.model('Tasks', {
 		default: false
 	}
 });
+
+const Tasks = mongoose.model('Tasks', taskSchema);
 
 const task = new Tasks({
 	description: 'Working on this task',
