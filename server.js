@@ -29,6 +29,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 mongoose.Promise = global.Promise;
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
+mongoose.set('useUnifiedTopology', true );
 mongoose.connect(`mongodb://${config.username}:${config.password}@${config.host}:${config.port}/${config.database}`, { useNewUrlParser: true })
 .then(() => console.log('MongoDB connected ...'))
 .catch(err => console.log(err));
