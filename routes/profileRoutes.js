@@ -18,19 +18,19 @@ const router = new express.Router();
 
 
 
-router.post('/profile', createProfile);
+router.post('/api/v1/profile', createProfile);
 
-router.get('/profile/greetings', sendHi);
+router.get('/api/v1/profile/greetings', sendHi);
 
-router.get('/profile', auth, profileDetails);
+router.get('/api/v1/profile', auth, profileDetails);
 
-router.post('/profile/avatar', auth, uploadAvatar.single('avatar'), uploadProfileAvatar);
+router.post('/api/v1/profile/avatar', auth, uploadAvatar.single('avatar'), uploadProfileAvatar);
 
-router.delete('/profile/avatar', auth, deleteProfileAvatar);
+router.delete('/api/v1/profile/avatar', auth, deleteProfileAvatar);
 
-router.patch('/profile', auth, updateProfile);
+router.patch('/api/v1/profile', auth, updateProfile);
 
-router.delete('/profile', auth, deleteProfile);
+router.delete('/api/v1/profile', auth, deleteProfile);
 
 
 module.exports = router;
