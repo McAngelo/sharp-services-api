@@ -1,4 +1,5 @@
-# Simple Express Static File Server
+# Simple Express Static File Server 
+# [![Travis Build Status](https://travis-ci.org/McAngelo/sharp-services-api.svg?branch=master) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/McAngelo/sharp-services-api/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/McAngelo/sharp-services-api/?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/McAngelo/sharp-services-api/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/McAngelo/sharp-services-api/?branch=master) [![Code Intelligence Status](https://scrutinizer-ci.com/g/McAngelo/sharp-services-api/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence) [![MIT License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)]
 
 A very simple static file server. For development use only.
 
