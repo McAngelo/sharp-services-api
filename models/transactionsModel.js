@@ -3,20 +3,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-/*
-public transaction_id?:string,
-        public user_id?: string,
-        public transaction_type?: string, //credit / debit
-        public amount?: number,
-        public transaction_title?: string,
-        public transaction_description?: string,
-        public transaction_status?: boolean, //0 deleted / 1 not deleted
-        public transaction_created_by?: number,
-        public transaction_date_created?: any,
-        public transaction_updated_by?: number,
-        public transaction_date_updated?: any
-*/
-
 var TransactionsSchema = new Schema({
 	transaction_id:{
 		type: String,
@@ -48,22 +34,15 @@ var TransactionsSchema = new Schema({
 		}],
 		default: ['active']
 	},
-	transaction_created_by:{
-		type: Number,
-		required: 'User who created the transaction'
-	},
-	transaction_date_created: {
-		type: Date //,
-		//default: Date.now
-	},
-	transaction_updated_by:{
-		type: Number,
-		//required: 'Transaction amount'
-	},
-	transaction_date_updated: {
-		type: Date,
-		//default: Date.now
+	owner: {
+		type: mongoose.Schema.Types.ObjectId,
+		required: true,
+		ref: 'User'
 	}
+}, {
+	timestamps: true
 });
 
-module.exports = mongoose.model('Transactions', TransactionsSchema);
+const Transactions = mongoose.model('Transactions', TransactionsSchema);
+
+module.exports = Transactions;

@@ -7,7 +7,6 @@ var express = require("express"),
     cors = require('cors'),
     errorHandler = require('errorhandler'),
     methodOverride = require('method-override'),
-    mongoose = require('mongoose'),
     Task = require('./models/todoListModel'), // created model loading here
     User = require('./models/usersModel'), // created model loading here
     Transactions = require('./models/transactionsModel'), // created model loading here
@@ -16,31 +15,19 @@ var express = require("express"),
     publicDir = process.argv[2] || __dirname + '/public',
     path = require('path');
 
-const env = process.env.NODE_ENV || 'development';
-const config = require(`${__dirname}/config/config.js`)[env];
-
-//console.log(config);
+// mongo database connection
+require('./_helpers/db_connection');
 
 var swaggerUi = require('swagger-ui-express'),
     swaggerDocument = require('./swagger.json');
-
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-mongoose.Promise = global.Promise;
-mongoose.set('useCreateIndex', true);
-mongoose.set('useFindAndModify', false);
-mongoose.set('useUnifiedTopology', true );
-mongoose.connect(`mongodb://${config.username}:${config.password}@${config.host}:${config.port}/${config.database}`, { useNewUrlParser: true })
-.then(() => console.log('MongoDB connected ...'))
-.catch(err => console.log(err));
-
-
+// API landing page
 app.get("/", function (req, res) {
   res.sendFile(path.join(publicDir, "/index.html"));
 });
 
 app.options('*', cors());
-
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
