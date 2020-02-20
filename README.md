@@ -1,4 +1,4 @@
-# Simple Express Static File Server
+# Simple Express Static File Server [![Travis Build Status](https://travis-ci.org/McAngelo/sharp-services-api.svg?branch=master) [![MIT License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)]
 
 A very simple static file server. For development use only.
 
