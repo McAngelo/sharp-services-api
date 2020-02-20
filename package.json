@@ -5,9 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "start-dev": "nodemon server.js",
-    "start-learn": "env-cmd -f ./learning-mongo/config/dev.env nodemon ./learning-mongo/index.js",
-    "test": "env-cmd -f ./learning-mongo/config/test.env jest --watch --runInBand"
+    "start-dev": "nodemon server.js"
   },
   "jest": {
     "testEnvironment": "node"
