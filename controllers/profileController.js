@@ -1,9 +1,14 @@
 'use strict';
 
+const multer = require('multer');
 const sharp = require('sharp');
 const User = require('../models/user');
+const { 
+	sendWelcomeEmail, 
+	sendCloseAccountEmail, 
+	sendHiEmail } = require('../_notifications/email_notifications/send_grid_account');
 
-const createMyProfile = async (req, res) => {
+const createProfile = async (req, res) => {
 
 	const user = new User(req.body);
 
@@ -20,12 +25,34 @@ const createMyProfile = async (req, res) => {
 	}
 };
 
-const sendMyHi = async (req, res) =>{
+const profileDetails = async (req, res) => {
+
+	try{
+		res.status(200).send(req.user);
+	} catch (err){
+		res.status(500).send(err);
+	}
+};
+
+const uploadAvatar = multer({
+	limits: {
+		fileSize: 1000000
+	},
+	fileFilter(req, file, cb){
+		if(!file.originalname.match(/\.(jpg|jpeg|png)$/)){
+			return cb(new Error('Please upload an image'))
+		}
+
+		cb(undefined, true);
+	}
+});
+
+const sendHi = async (req, res) =>{
 	sendHiEmail();
 	res.send();
 };
 
-const uploadMyProfileAvatar = async (req, res) => {
+const uploadProfileAvatar = async (req, res) => {
 	const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer();
 	//req.user.avatar = req.file.buffer;
 	req.user.avatar = buffer;
@@ -35,7 +62,7 @@ const uploadMyProfileAvatar = async (req, res) => {
 	res.status(400).send({ error: error.message });
 };
 
-const updateMyProfile = async (req, res) => {
+const updateProfile = async (req, res) => {
 	const  _id = req.params.id;
 	const bodyData = req.body;
 	
@@ -63,13 +90,13 @@ const updateMyProfile = async (req, res) => {
 	}
 };
 
-const deleteMyProfileAvatar = async (req, res) => {
+const deleteProfileAvatar = async (req, res) => {
 	req.user.avatar = undefined;
 	await req.user.save();
 	res.send();
 };
 
-const deleteMyProfile = async (req, res) => {
+const deleteProfile = async (req, res) => {
 	//console.log(req.user)
 	try {
 		await req.user.remove();
@@ -83,10 +110,12 @@ const deleteMyProfile = async (req, res) => {
 };
 
 module.exports = {
-	createMyProfile,
-	sendMyHi,
-	uploadMyProfileAvatar,
-	updateMyProfile,
-	deleteMyProfileAvatar,
-	deleteMyProfile
+	createProfile,
+	profileDetails,
+	uploadAvatar,
+	sendHi,
+	uploadProfileAvatar,
+	updateProfile,
+	deleteProfileAvatar,
+	deleteProfile
 }
