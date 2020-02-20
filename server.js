@@ -42,8 +42,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-// use JWT auth to secure the api
-//app.use(jwt());
+
 
 // working with todo routes
 var todoRoutes = require('./routes/todoListRoutes'); // importing route
