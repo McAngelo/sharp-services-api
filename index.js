@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
-if(!process.argv[2]) {
-  console.log('Please, specify a folder to serve')
-  process.exit();
-}
+const app = require('./app');
+const port = process.env.PORT;
+publicDir = process.argv[2] || __dirname + '/public',
 
-require('./server');
+app.listen(port, () => {
+	console.log(`Server is up on port ${port}`);
+})
