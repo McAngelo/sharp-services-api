@@ -1,19 +1,18 @@
 #!/usr/bin/env node
 'use strict';
 require('rootpath')();
-var express = require("express"),
-    app = express(),
-    bodyParser = require('body-parser'),
-    cors = require('cors'),
-    errorHandler = require('errorhandler'),
-    methodOverride = require('method-override'),
-    Task = require('./models/todoListModel'), // created model loading here
-    User = require('./models/usersModel'), // created model loading here
-    Transactions = require('./models/transactionsModel'), // created model loading here
-    hostname = process.env.HOSTNAME || 'localhost',
-    port = parseInt(process.env.PORT, 10) || 8080,
-    publicDir = process.argv[2] || __dirname + '/public',
-    path = require('path');
+const express = require("express");
+const app = express();
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const errorHandler = require('errorhandler');
+const methodOverride = require('method-override');
+const port = process.env.PORT;
+const publicDir = process.argv[2] || __dirname + '/public';
+const path = require('path');
+
+const guardRouter = require('./routes/guardRoutes');
+const profileRouter = require('./routes/profileRoutes');
 
 // mongo database connection
 require('./_helpers/db_connection');
@@ -42,20 +41,8 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-
-
-// working with todo routes
-var todoRoutes = require('./routes/todoListRoutes'); // importing route
-todoRoutes(app);
-
-// working with todo routes
-var userRoutes = require('./routes/usersRoutes'); // importing route
-userRoutes(app);
-
-// working with todo routes
-var transactionListRoutes = require('./routes/transactionsRoutes'); // importing route
-transactionListRoutes(app);
-
+app.use(guardRouter);
+app.use(profileRouter);
 
 app.use(express.static(publicDir));
 
@@ -66,5 +53,7 @@ app.use(errorHandler({
   showStack: true
 }));
 
-console.log(`Simple static server showing ${publicDir} listening at http://${hostname}:${port}`);
-app.listen(port);
+module.exports = app;
+
+/*console.log(`Simple static server showing ${publicDir} listening at http://${hostname}:${port}`);
+app.listen(port);*/
