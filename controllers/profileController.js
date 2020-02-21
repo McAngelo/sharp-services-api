@@ -58,9 +58,7 @@ const uploadProfileAvatar = async (req, res) => {
 	req.user.avatar = buffer;
 	await req.user.save();
 	res.send();
-}/*, (error, req, res, next) => {
-	res.status(400).send({ error: error.message });
-}*/;
+};
 
 const updateProfile = async (req, res) => {
 	const  _id = req.params.id;
