@@ -54,6 +54,3 @@ app.use(errorHandler({
 }));
 
 module.exports = app;
-
-/*console.log(`Simple static server showing ${publicDir} listening at http://${hostname}:${port}`);
-app.listen(port);*/

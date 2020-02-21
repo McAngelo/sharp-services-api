@@ -2,7 +2,7 @@
 
 const multer = require('multer');
 const sharp = require('sharp');
-const User = require('../models/user');
+const User = require('../models/usersModel');
 const { 
 	sendWelcomeEmail, 
 	sendCloseAccountEmail, 
@@ -58,9 +58,9 @@ const uploadProfileAvatar = async (req, res) => {
 	req.user.avatar = buffer;
 	await req.user.save();
 	res.send();
-}, (error, req, res, next) => {
+}/*, (error, req, res, next) => {
 	res.status(400).send({ error: error.message });
-};
+}*/;
 
 const updateProfile = async (req, res) => {
 	const  _id = req.params.id;
