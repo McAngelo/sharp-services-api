@@ -7,7 +7,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const errorHandler = require('errorhandler');
 const methodOverride = require('method-override');
-const port = process.env.PORT;
 const publicDir = process.argv[2] || __dirname + '/public';
 const path = require('path');
 
