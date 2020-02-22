@@ -12,7 +12,6 @@ const login = async (req, res) => {
 
 		res.send({user, token});
 	} catch(err) {
-		// statements
 		res.status(400).send({
 			status: res.statusCode,
 			message: err.message

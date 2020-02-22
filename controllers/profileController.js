@@ -18,19 +18,33 @@ const createProfile = async (req, res) => {
 
 		const token = await user.generateAuthToken();
 		//console.log({ user, token });
-		res.status(201).send({ user, token });
+		res.status(201).send({
+			status: res.statusCode,
+			message: 'User Profile created successfully',
+			data: { user, token }
+		});
 	} catch (err){
 		console.log(err);
-		res.status(400).send(err);
+		res.status(400).send({
+			status: res.statusCode,
+			message: err.message
+		});
 	}
 };
 
 const profileDetails = async (req, res) => {
 
 	try{
-		res.status(200).send(req.user);
+		res.status(200).send({
+			status: res.statusCode,
+			message: 'Successful',
+			data: req.user
+		});
 	} catch (err){
-		res.status(500).send(err);
+		res.status(400).send({
+			status: res.statusCode,
+			message: err.message
+		});
 	}
 };
 
@@ -59,12 +73,18 @@ const uploadProfileAvatar = async (req, res) => {
 		//req.user.avatar = req.file.buffer;
 		req.user.avatar = buffer;
 		await req.user.save();
-		res.send();
+		res.send({
+			status: res.statusCode,
+			message: 'Successful'
+		});
 		// statements
 	} catch(err) {
 		// statements
-		console.log(err);
-		res.status(400).send(err);
+		//console.log(err);
+		res.status(400).send({
+			status: res.statusCode,
+			message: err.message
+		});
 	}
 	
 };
@@ -80,20 +100,22 @@ const updateProfile = async (req, res) => {
 	});
 
 	try {
-
-		//console.log(req.user, req.body);
 		updates.forEach((update) =>{
-			// statements
-			//console
 			req.user[update] = req.body[update];
 		});
 		await req.user.save();
-		//const user = await User.findByIdAndUpdate(_id, bodyData, { new:true, runValidators: true });
+		
 
-		res.status(200).send(req.user);
+		res.status(200).send({
+			status: res.statusCode,
+			message: 'Successful',
+			data: req.user
+		});
 	} catch(err) {
-		//console.log(err);
-		res.status(400).send(err);
+		res.status(400).send({
+			status: res.statusCode,
+			message: err.message
+		});
 	}
 };
 
