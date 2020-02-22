@@ -7,6 +7,7 @@ const {
 	uploadAvatar,
 	sendHi,
 	uploadProfileAvatar,
+	changePassword,
 	updateProfile,
 	deleteProfileAvatar,
 	deleteProfile
@@ -20,6 +21,8 @@ router.post('/api/v1/profile', createProfile);
 router.get('/api/v1/profile/greetings', sendHi);
 
 router.get('/api/v1/profile', auth, profileDetails);
+
+router.patch('/api/v1/profile/change-password', auth, changePassword);
 
 router.patch('/api/v1/profile', auth, updateProfile);
 

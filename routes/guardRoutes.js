@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+
 const { 
 	login,
 	forgottenPassword,
@@ -9,6 +10,7 @@ const {
 	logout,
 	logoutAll
 } = require('../controllers/guardController');
+
 const auth = require('../_middleware/auth');
 
 const router = new express.Router();

@@ -86,8 +86,14 @@ const uploadProfileAvatar = async (req, res) => {
 			message: err.message
 		});
 	}
-	
 };
+
+const changePassword = async (req, res) => {
+	res.status(200).send({
+		status: res.statusCode,
+		message: 'We are working on the change password feature'
+	});
+}
 
 const updateProfile = async (req, res) => {
 	const  _id = req.params.id;
@@ -161,6 +167,7 @@ module.exports = {
 	uploadAvatar,
 	sendHi,
 	uploadProfileAvatar,
+	changePassword,
 	updateProfile,
 	deleteProfileAvatar,
 	deleteProfile
