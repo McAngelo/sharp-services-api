@@ -6,7 +6,6 @@ const User = require('../models/usersModel');
 const router = new express.Router();
 
 const login = async (req, res) => {
-	//console.log(req.body);
 	try {
 		const user = await User.findByIdCredentials(req.body.email, req.body.password);
 		const token = await user.generateAuthToken();
@@ -14,9 +13,9 @@ const login = async (req, res) => {
 		res.send({user, token});
 	} catch(err) {
 		// statements
-		console.log(err);
 		res.status(400).send({
-			message: err
+			status: res.statusCode,
+			message: err.message
 		});
 	}
 }
@@ -31,7 +30,10 @@ const logout = async (req, res) => {
 
 		res.send();
 	} catch(err) {
-		res.status(500).send();
+		res.status(500).send({
+			status: res.statusCode,
+			message: err.message
+		});
 	}
 };
 
@@ -43,7 +45,10 @@ const logoutAll = async (req, res) => {
 
 		res.send();
 	} catch(err) {
-		res.status(500).send();
+		res.status(500).send({
+			status: res.statusCode,
+			message: err.message
+		});
 	}
 };
 

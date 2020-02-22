@@ -53,11 +53,20 @@ const sendHi = async (req, res) =>{
 };
 
 const uploadProfileAvatar = async (req, res) => {
-	const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer();
-	//req.user.avatar = req.file.buffer;
-	req.user.avatar = buffer;
-	await req.user.save();
-	res.send();
+	console.log(req.file);
+	try {
+		const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer();
+		//req.user.avatar = req.file.buffer;
+		req.user.avatar = buffer;
+		await req.user.save();
+		res.send();
+		// statements
+	} catch(err) {
+		// statements
+		console.log(err);
+		res.status(400).send(err);
+	}
+	
 };
 
 const updateProfile = async (req, res) => {
