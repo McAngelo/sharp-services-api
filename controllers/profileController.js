@@ -120,9 +120,21 @@ const updateProfile = async (req, res) => {
 };
 
 const deleteProfileAvatar = async (req, res) => {
-	req.user.avatar = undefined;
-	await req.user.save();
-	res.send();
+	try {
+		// statements
+		req.user.avatar = undefined;
+		await req.user.save();
+		res.send({
+			status: res.statusCode,
+			message: 'Successful'
+		});
+	} catch(err) {
+		// statements
+		res.status(400).send({
+			status: res.statusCode,
+			message: err.message
+		});
+	}
 };
 
 const deleteProfile = async (req, res) => {
@@ -130,11 +142,16 @@ const deleteProfile = async (req, res) => {
 	try {
 		await req.user.remove();
 		await sendCloseAccountEmail(req.user.email, req.user.name);
-		res.send(req.user);
+		res.send({
+			status: res.statusCode,
+			message: 'Successful',
+			data: req.user
+		});
 	} catch(err) {
-		// statements
-		console.log(err);
-		res.status(500).send();
+		res.status(400).send({
+			status: res.statusCode,
+			message: err.message
+		});
 	}
 };
 
