@@ -19,6 +19,27 @@ const login = async (req, res) => {
 	}
 }
 
+const forgottenPassword = async (req, res) =>{
+	res.status(200).send({
+		status: res.statusCode,
+		message: 'We are working on the forgotten password feature'
+	});
+};
+
+const resetPassword = async (req, res) =>{
+	res.status(200).send({
+		status: res.statusCode,
+		message: 'We are working on the reset password feature'
+	});
+};
+
+const emailVerification = async (req, res) =>{
+	res.status(200).send({
+		status: res.statusCode,
+		message: 'We are working on the email verification feature'
+	});
+};
+
 const logout = async (req, res) => {
 	try {
 		req.user.tokens = req.user.tokens.filter((token) => {
@@ -53,6 +74,9 @@ const logoutAll = async (req, res) => {
 
 module.exports = {
 	login,
+	forgottenPassword,
+	resetPassword,
+	emailVerification,
 	logout,
 	logoutAll
 }
