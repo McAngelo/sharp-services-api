@@ -2,7 +2,7 @@
 
 const multer = require('multer');
 const sharp = require('sharp');
-const User = require('../models/user');
+const User = require('../models/usersModel');
 const { 
 	sendWelcomeEmail, 
 	sendCloseAccountEmail, 
@@ -18,19 +18,33 @@ const createProfile = async (req, res) => {
 
 		const token = await user.generateAuthToken();
 		//console.log({ user, token });
-		res.status(201).send({ user, token });
+		res.status(201).send({
+			status: res.statusCode,
+			message: 'User Profile created successfully',
+			data: { user, token }
+		});
 	} catch (err){
 		console.log(err);
-		res.status(400).send(err);
+		res.status(400).send({
+			status: res.statusCode,
+			message: err.message
+		});
 	}
 };
 
 const profileDetails = async (req, res) => {
 
 	try{
-		res.status(200).send(req.user);
+		res.status(200).send({
+			status: res.statusCode,
+			message: 'Successful',
+			data: req.user
+		});
 	} catch (err){
-		res.status(500).send(err);
+		res.status(400).send({
+			status: res.statusCode,
+			message: err.message
+		});
 	}
 };
 
@@ -53,14 +67,33 @@ const sendHi = async (req, res) =>{
 };
 
 const uploadProfileAvatar = async (req, res) => {
-	const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer();
-	//req.user.avatar = req.file.buffer;
-	req.user.avatar = buffer;
-	await req.user.save();
-	res.send();
-}, (error, req, res, next) => {
-	res.status(400).send({ error: error.message });
+	console.log(req.file);
+	try {
+		const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer();
+		//req.user.avatar = req.file.buffer;
+		req.user.avatar = buffer;
+		await req.user.save();
+		res.send({
+			status: res.statusCode,
+			message: 'Successful'
+		});
+		// statements
+	} catch(err) {
+		// statements
+		//console.log(err);
+		res.status(400).send({
+			status: res.statusCode,
+			message: err.message
+		});
+	}
 };
+
+const changePassword = async (req, res) => {
+	res.status(200).send({
+		status: res.statusCode,
+		message: 'We are working on the change password feature'
+	});
+}
 
 const updateProfile = async (req, res) => {
 	const  _id = req.params.id;
@@ -73,27 +106,41 @@ const updateProfile = async (req, res) => {
 	});
 
 	try {
-
-		//console.log(req.user, req.body);
 		updates.forEach((update) =>{
-			// statements
-			//console
 			req.user[update] = req.body[update];
 		});
 		await req.user.save();
-		//const user = await User.findByIdAndUpdate(_id, bodyData, { new:true, runValidators: true });
+		
 
-		res.status(200).send(req.user);
+		res.status(200).send({
+			status: res.statusCode,
+			message: 'Successful',
+			data: req.user
+		});
 	} catch(err) {
-		//console.log(err);
-		res.status(400).send(err);
+		res.status(400).send({
+			status: res.statusCode,
+			message: err.message
+		});
 	}
 };
 
 const deleteProfileAvatar = async (req, res) => {
-	req.user.avatar = undefined;
-	await req.user.save();
-	res.send();
+	try {
+		// statements
+		req.user.avatar = undefined;
+		await req.user.save();
+		res.send({
+			status: res.statusCode,
+			message: 'Successful'
+		});
+	} catch(err) {
+		// statements
+		res.status(400).send({
+			status: res.statusCode,
+			message: err.message
+		});
+	}
 };
 
 const deleteProfile = async (req, res) => {
@@ -101,11 +148,16 @@ const deleteProfile = async (req, res) => {
 	try {
 		await req.user.remove();
 		await sendCloseAccountEmail(req.user.email, req.user.name);
-		res.send(req.user);
+		res.send({
+			status: res.statusCode,
+			message: 'Successful',
+			data: req.user
+		});
 	} catch(err) {
-		// statements
-		console.log(err);
-		res.status(500).send();
+		res.status(400).send({
+			status: res.statusCode,
+			message: err.message
+		});
 	}
 };
 
@@ -115,6 +167,7 @@ module.exports = {
 	uploadAvatar,
 	sendHi,
 	uploadProfileAvatar,
+	changePassword,
 	updateProfile,
 	deleteProfileAvatar,
 	deleteProfile

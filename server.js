@@ -7,7 +7,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const errorHandler = require('errorhandler');
 const methodOverride = require('method-override');
-const port = process.env.PORT;
 const publicDir = process.argv[2] || __dirname + '/public';
 const path = require('path');
 
@@ -54,6 +53,3 @@ app.use(errorHandler({
 }));
 
 module.exports = app;
-
-/*console.log(`Simple static server showing ${publicDir} listening at http://${hostname}:${port}`);
-app.listen(port);*/

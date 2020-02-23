@@ -23,19 +23,11 @@
   ],
   "tags": [   
     {
-      "name": "Settings",
-      "description": "API for system settings in the system"
+      "name": "Authentication Guard",
+      "description": "Endpoints to manage user authentication"
     },
     {
-      "name": "Tasks",
-      "description": "API for tasks in the system"
-    },
-    {
-      "name": "Transactions",
-      "description": "API for transactions in the system"
-    },
-    {
-      "name": "Users",
+      "name": "Profile",
       "description": "API for users in the system"
     }
   ],

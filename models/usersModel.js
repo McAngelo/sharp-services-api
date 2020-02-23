@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const Task = require('./task');
+const Task = require('./taskModel');
 
 const userSchema = new mongoose.Schema({
 	name: {
@@ -100,13 +100,13 @@ userSchema.statics.findByIdCredentials = async (email, password) => {
 	const user = await User.findOne({ email });
 
 	if(!user){
-		throw new Error('Unable to login')
+		throw new Error('Sorry, invalid email')
 	}
 
 	const isMatch = await bcrypt.compare(password, user.password);
 
 	if(!isMatch){
-		throw new Error('Unable to login');
+		throw new Error('Sorry, invalid password');
 	}
 
 	return user;

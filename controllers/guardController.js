@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const User = require('../models/user');
+const User = require('../models/usersModel');
 
 const router = new express.Router();
 
@@ -12,11 +12,33 @@ const login = async (req, res) => {
 
 		res.send({user, token});
 	} catch(err) {
-		// statements
-		//console.log(err);
-		res.status(400).send();
+		res.status(400).send({
+			status: res.statusCode,
+			message: err.message
+		});
 	}
 }
+
+const forgottenPassword = async (req, res) =>{
+	res.status(200).send({
+		status: res.statusCode,
+		message: 'We are working on the forgotten password feature'
+	});
+};
+
+const resetPassword = async (req, res) =>{
+	res.status(200).send({
+		status: res.statusCode,
+		message: 'We are working on the reset password feature'
+	});
+};
+
+const emailVerification = async (req, res) =>{
+	res.status(200).send({
+		status: res.statusCode,
+		message: 'We are working on the email verification feature'
+	});
+};
 
 const logout = async (req, res) => {
 	try {
@@ -28,7 +50,10 @@ const logout = async (req, res) => {
 
 		res.send();
 	} catch(err) {
-		res.status(500).send();
+		res.status(500).send({
+			status: res.statusCode,
+			message: err.message
+		});
 	}
 };
 
@@ -40,12 +65,18 @@ const logoutAll = async (req, res) => {
 
 		res.send();
 	} catch(err) {
-		res.status(500).send();
+		res.status(500).send({
+			status: res.statusCode,
+			message: err.message
+		});
 	}
 };
 
 module.exports = {
 	login,
+	forgottenPassword,
+	resetPassword,
+	emailVerification,
 	logout,
 	logoutAll
 }
