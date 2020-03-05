@@ -44,7 +44,7 @@ $(document).on('ready', function () {
   }
 
   // 2. Init Coutdown clock
-  try {
+  /*try {
     // check if clock is initialised
     $('.clock-countdown').downCount({
       date: $('.site-config').attr('data-date'),
@@ -54,7 +54,7 @@ $(document).on('ready', function () {
   catch (error) {
     // Clock error : clock is unavailable
     console.log("clock disabled/unavailable");
-  }
+  }*/
 
   // 3. Navigation menu
   // 3.1 Show/hide menu when icon is clicked
@@ -145,7 +145,7 @@ $(document).on('ready', function () {
   });
 
   // contact form
-  var sendEmailForm = $('.send_email_form');
+  /*var sendEmailForm = $('.send_email_form');
   var sendMessageForm = $('.send_message_form');
   // Default server url
   var newsletterServerUrl = './ajaxserver/serverfile.php';
@@ -164,7 +164,7 @@ $(document).on('ready', function () {
   });
   sendMessageForm.initForm({
     serverUrl: messageServerUrl,
-  });
+  });*/
 
   // 8. Hide some ui on scroll
   var scrollHeight = $(document).height() - contextWindow.height();
