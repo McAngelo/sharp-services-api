@@ -59,13 +59,33 @@ exports.create_a_user = function (req, res, next) {
 };
 
 // this updates a user's record
-exports.update_a_user = function (req, res, next) {
-    User.findByIdAndUpdate(req.body._id, req.body, {new: true}, function (err, user) {
-        if (err) {
-            next(err);
-        } else {
-            res.json(user);
+exports.update_a_user = function (req, res) {
+    models.User.findOne({
+        where: {
+            id: req.params.userId
         }
+    }).then(function(user){
+        console.log(req.body);
+        if(user){
+            user.update({
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                otherNames: req.body.otherNames,
+                username: req.body.username,
+                email: req.body.email,
+                phoneNumber: req.body.phoneNumber,
+                role: req.body.role,
+            }).then(function(user){
+                res.json(user);
+            });
+        }else{
+            res.json({
+                err: "Sorry User does not exist"
+            });
+        }
+        
+    }).catch(function(err){
+        res.json(err);
     });
 };
 
