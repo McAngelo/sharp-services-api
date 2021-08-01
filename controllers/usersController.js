@@ -19,13 +19,13 @@ exports.getAll = function(req, res, next){
 
 // this gets all users
 exports.get_all_Users = function (req, res, next) {
-    User.find(function (err, users) {
-        if (err) {
-            next(err);
-        } else {
-            res.json(users);
-        }
-    });
+    models.User.findAll({
+
+    }).then(function(users){
+        res.json(users);
+    }).catch(function(err){
+        res.json(err);
+    })
 };
 
 // this allows a search users
