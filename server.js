@@ -10,11 +10,12 @@ const methodOverride = require('method-override');
 const publicDir = process.argv[2] || __dirname + '/public';
 const path = require('path');
 
-const guardRouter = require('./routes/guardRoutes');
-const profileRouter = require('./routes/profileRoutes');
+//const guardRouter = require('./routes/guardRoutes');
+//const profileRouter = require('./routes/profileRoutes');
 
 // mongo database connection
-require('./_helpers/db_connection');
+//require('./_helpers/mongo_db_connection');
+
 
 var swaggerUi = require('swagger-ui-express'),
     swaggerDocument = require('./swagger.json');
@@ -40,8 +41,8 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-app.use(guardRouter);
-app.use(profileRouter);
+//app.use(guardRouter);
+//app.use(profileRouter);
 
 app.use(express.static(publicDir));
 

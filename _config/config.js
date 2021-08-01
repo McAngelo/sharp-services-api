@@ -1,24 +1,23 @@
-require('dotenv').config({ path: 'env' });
-
-module.exports = {
-  development: {
-    username: process.env.DB_USER_NAME || '',
-    password: process.env.DB_USER_PWD || '',
-    database: process.env.DB_NAME,
-    host: process.env.DB_HOST,
-    port: process.env.PORT,
-    environment: process.env.NODE_ENV
-    //dialect: 'mysql',
-    // operatorsAliases: false,
+{
+  "development": {
+    "username": process.env.DB_USER_NAME || '',
+    "password": process.env.DB_USER_PWD || '',
+    "database": process.env.DB_NAME,
+    "host": process.env.DB_HOST,
+    "dialect": "mysql"
   },
-  production: {
-    username: process.env.DB_USER_NAME,
-    password: process.env.DB_USER_PWD,
-    database: process.env.DB_NAME,
-    host: process.env.DB_HOST,
-    port: process.env.APP_PORT,
-    environment: process.env.NODE_ENV
-    //dialect: 'mysql',
-    // operatorsAliases: false,
+  "test": {
+    "username": process.env.DB_USER_NAME || '',
+    "password": process.env.DB_USER_PWD || '',
+    "database": process.env.DB_NAME,
+    "host": process.env.DB_HOST,
+    "dialect": "mysql"
   },
-};
+  "production": {
+    "username": process.env.DB_USER_NAME || '',
+    "password": process.env.DB_USER_PWD || '',
+    "database": process.env.DB_NAME,
+    "host": process.env.DB_HOST,
+    "dialect": "mysql"
+  }
+}
