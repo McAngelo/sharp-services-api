@@ -2,8 +2,8 @@
 
 let models = require('../models/index');
 let User = require('../models/user');
-
 const userService = require('../_helpers/user.service');
+var apiResponse = new Object();
 
 exports.authenticate = function(req, res, next){
     userService.authenticate(req.body)
@@ -22,9 +22,17 @@ exports.get_all_Users = function (req, res, next) {
     models.User.findAll({
 
     }).then(function(users){
-        res.json(users);
+        res.statusCode = 200;
+        apiResponse.status = res.statusCode;
+        apiResponse.message = 'Successful';
+        apiResponse.data = users;
+        res.json(apiResponse);
     }).catch(function(err){
-        res.json(err);
+        res.statusCode = 400;
+        apiResponse.status = res.statusCode;
+        apiResponse.message = 'Error';
+        apiResponse.data = err;
+        res.json(apiResponse);
     });
 };
 
@@ -35,27 +43,42 @@ var getOneUser = function (req, res) {
 
 // this gets a user by ID
 exports.get_user_by_id = function (req, res) {
-	//console.log(req.params, req.params.userId);
     models.User.findOne({
         where: {
             id: req.params.userId
         }
     }).then(function(user){
-        res.json(user);
+        res.statusCode = 200;
+        apiResponse.status = res.statusCode;
+        apiResponse.message = 'Successful';
+        apiResponse.data = user;
+        res.json(apiResponse);
     }).catch(function(err){
-        res.json(err);
+        res.statusCode = 400;
+        apiResponse.status = res.statusCode;
+        apiResponse.message = 'Error';
+        apiResponse.data = err;
+        res.json(apiResponse);
     });
 };
 
 // this creates a new user
 exports.create_a_user = function (req, res, next) {
-    var user = req.body;
+    let user = req.body;
     console.log(user);
     models.User.create(user).then(function(user){
-        res.json(user);
+        res.statusCode = 200;
+        apiResponse.status = res.statusCode;
+        apiResponse.message = 'Successful';
+        apiResponse.data = user;
+        res.json(apiResponse);
     }).catch(function(err){
-        res.json(err);
-    })
+        res.statusCode = 400;
+        apiResponse.status = res.statusCode;
+        apiResponse.message = 'Error';
+        apiResponse.data = err;
+        res.json(apiResponse);
+    });
 };
 
 // this updates a user's record
@@ -65,7 +88,6 @@ exports.update_a_user = function (req, res) {
             id: req.params.userId
         }
     }).then(function(user){
-        console.log(req.body);
         if(user){
             user.update({
                 firstName: req.body.firstName,
@@ -76,16 +98,26 @@ exports.update_a_user = function (req, res) {
                 phoneNumber: req.body.phoneNumber,
                 role: req.body.role,
             }).then(function(user){
-                res.json(user);
+                res.statusCode = 200;
+                apiResponse.status = res.statusCode;
+                apiResponse.message = 'Successful';
+                apiResponse.data = user;
+                res.json(apiResponse);
             });
         }else{
-            res.json({
-                err: "Sorry User does not exist"
-            });
+            res.statusCode = 404;
+            apiResponse.status = res.statusCode;
+            apiResponse.message = 'Error';
+            apiResponse.data = "Sorry User does not exist";
+            res.json(apiResponse);
         }
         
     }).catch(function(err){
-        res.json(err);
+        res.statusCode = 400;
+            apiResponse.status = res.statusCode;
+            apiResponse.message = 'Error';
+            apiResponse.data = err;
+            res.json(apiResponse);
     });
 };
 
@@ -96,8 +128,16 @@ exports.delete_a_user = function (req, res, next) {
             id: req.params.userId
         }
     }).then(function(user){
-        res.json(user);
+        res.statusCode = 200;
+        apiResponse.status = res.statusCode;
+        apiResponse.message = 'Successful';
+        apiResponse.data = user;
+        res.json(apiResponse);
     }).catch(function(err){
-        res.json(err);
+        res.statusCode = 400;
+        apiResponse.status = res.statusCode;
+        apiResponse.message = 'Error';
+        apiResponse.data = err;
+        res.json(apiResponse);
     });
 };
