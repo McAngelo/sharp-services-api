@@ -1,7 +1,7 @@
 'use strict';
 
-var mongoose = require('mongoose');
-var User = mongoose.model('Users');
+let models = require('../models/index');
+let User = require('../models/user');
 
 const userService = require('../_helpers/user.service');
 
@@ -48,15 +48,17 @@ exports.get_user_by_id = function (req, res, next, id) {
 
 // this creates a new user
 exports.create_a_user = function (req, res, next) {
-    var user = new User(req.body);
-
-    user.save(function (err) {
-        if (err) {
-            next(err);
-        } else {
-            res.json(user);
-        }
-    });
+    var user = req.body;
+    console.log(user);
+    models.User.create({
+        username: user.username,
+        email: user.email,
+        password: user.password,
+    }).then(function(user){
+        res.json(user);
+    }).catch(function(err){
+        res.json(err);
+    })
 };
 
 // this updates a user's record

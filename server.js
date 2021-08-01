@@ -12,10 +12,7 @@ const path = require('path');
 
 //const guardRouter = require('./routes/guardRoutes');
 //const profileRouter = require('./routes/profileRoutes');
-
-// mongo database connection
-//require('./_helpers/mongo_db_connection');
-
+const userRouter = require('./routes/usersRoutes');
 
 var swaggerUi = require('swagger-ui-express'),
     swaggerDocument = require('./swagger.json');
@@ -36,13 +33,14 @@ app.use(function(req, res, next) {
 
 
 app.use(methodOverride());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
+app.use(express.json());
+app.use(express.urlencoded({
   extended: true
 }));
 
 //app.use(guardRouter);
 //app.use(profileRouter);
+app.use('/api/v1', userRouter);
 
 app.use(express.static(publicDir));
 

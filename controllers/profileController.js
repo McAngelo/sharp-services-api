@@ -2,7 +2,7 @@
 
 const multer = require('multer');
 const sharp = require('sharp');
-const User = require('../models/usersModel');
+const User = {}; //require('../models/usersModel');
 const { 
 	sendWelcomeEmail, 
 	sendCloseAccountEmail, 

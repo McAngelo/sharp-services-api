@@ -1,7 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
-var Transaction = mongoose.model('Transactions');
+var Transaction = {};//mongoose.model('Transactions');
 
 var apiResponse = new Object();
 
