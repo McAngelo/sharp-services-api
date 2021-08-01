@@ -25,7 +25,7 @@ exports.get_all_Users = function (req, res, next) {
         res.json(users);
     }).catch(function(err){
         res.json(err);
-    })
+    });
 };
 
 // this allows a search users
@@ -34,15 +34,16 @@ var getOneUser = function (req, res) {
 };
 
 // this gets a user by ID
-exports.get_user_by_id = function (req, res, next, id) {
-	console.log(req.params);
-    User.findById({_id: req.params.userId}, function (err, user) {
-        if (err) {
-            next(err);
-        } else {
-            req.user = user;
-            next();
+exports.get_user_by_id = function (req, res) {
+	console.log(req.params, req.params.userId);
+    models.User.findOne({
+        where: {
+            id: req.params.userId
         }
+    }).then(function(user){
+        res.json(user);
+    }).catch(function(err){
+        res.json(err);
     });
 };
 
@@ -50,11 +51,7 @@ exports.get_user_by_id = function (req, res, next, id) {
 exports.create_a_user = function (req, res, next) {
     var user = req.body;
     console.log(user);
-    models.User.create({
-        username: user.username,
-        email: user.email,
-        password: user.password,
-    }).then(function(user){
+    models.User.create(user).then(function(user){
         res.json(user);
     }).catch(function(err){
         res.json(err);
