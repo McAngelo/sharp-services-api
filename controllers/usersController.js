@@ -35,7 +35,7 @@ var getOneUser = function (req, res) {
 
 // this gets a user by ID
 exports.get_user_by_id = function (req, res) {
-	console.log(req.params, req.params.userId);
+	//console.log(req.params, req.params.userId);
     models.User.findOne({
         where: {
             id: req.params.userId
@@ -71,11 +71,13 @@ exports.update_a_user = function (req, res, next) {
 
 // this deletes a user's record
 exports.delete_a_user = function (req, res, next) {
-    req.user.remove(function (err) {
-        if (err) {
-            next(err);
-        } else {
-            res.json(req.user);
+    models.User.destroy({
+        where: {
+            id: req.params.userId
         }
+    }).then(function(user){
+        res.json(user);
+    }).catch(function(err){
+        res.json(err);
     });
 };
