@@ -24,7 +24,7 @@ exports.list_all_transactions = function(req, res){
     });
 };
 
-// this gets all the transactions by the userId items
+// this gets all the transaction items by the userId
 exports.list_all_transactions_by_userId = function(req, res){
 	models.Transactions.findAll({ 
 		where: {
@@ -45,11 +45,12 @@ exports.list_all_transactions_by_userId = function(req, res){
     });
 };
 
-// this gets a transaction by ID
-exports.get_transaction_by_id = function (req, res) {
+// this gets a transaction detail by ID
+exports.get_transaction_by_userId_and_transactionId = function (req, res) {
     models.Transactions.findOne({
         where: {
-            id: req.params.transactionId
+            user_id: req.params.userId,
+			id: req.params.transactionId
         }
     }).then(function(transaction){
         res.statusCode = 200;
@@ -87,10 +88,11 @@ exports.create_a_transaction = function(req, res){
 };
 
 // this update a single transactions
-exports.update_a_transaction = function(req, res){
+exports.update_user_transaction = function(req, res){
 	models.Transactions.findOne({
         where: {
-            id: req.params.transactionId
+            user_id: req.params.userId,
+			id: req.params.transactionId
         }
     }).then(function(transaction){
         if(transaction){
@@ -128,11 +130,12 @@ exports.update_a_transaction = function(req, res){
 
 
 // this delete a single transactions
-exports.delete_a_transaction = function(req, res){
+exports.delete_user_transaction = function(req, res){
 
 	 models.Transaction.destroy({
         where: {
-            id: req.params.transactionId
+            user_id: req.params.userId,
+			id: req.params.transactionId
         }
     }).then(function(transaction){
         res.statusCode = 200;

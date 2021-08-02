@@ -13,6 +13,7 @@ const path = require('path');
 //const guardRouter = require('./routes/guardRoutes');
 //const profileRouter = require('./routes/profileRoutes');
 const userRouter = require('./routes/usersRoutes');
+const transactionsRouter = require('./routes/transactionsRoutes');
 
 var swaggerUi = require('swagger-ui-express'),
     swaggerDocument = require('./swagger.json');
@@ -41,6 +42,7 @@ app.use(express.urlencoded({
 //app.use(guardRouter);
 //app.use(profileRouter);
 app.use('/api/v1', userRouter);
+app.use('/api/v1', transactionsRouter);
 
 app.use(express.static(publicDir));
 
